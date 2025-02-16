@@ -1,0 +1,33 @@
+{
+  "name": "farm_extenode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@inquirer/prompts": "^7.3.1",
+    "chalk": "^5.4.1",
+    "chrome-remote-interface": "^0.33.2",
+    "chromedriver": "^131.0.5",
+    "console-stamp": "^3.1.2",
+    "dotenv": "^16.4.7",
+    "enquirer": "^2.4.1",
+    "fs": "^0.0.1-security",
+    "inquirer": "^12.4.1",
+    "log4js": "^6.9.1",
+    "node-imap": "^0.9.6",
+    "path": "^0.12.7",
+    "proxy-chain": "^2.5.6",
+    "request": "^2.88.2",
+    "selenium-webdriver": "^4.27.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
+    "winston": "^3.17.0",
+    "ws": "^8.18.0"
+  }
+}
