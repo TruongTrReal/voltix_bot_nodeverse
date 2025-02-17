@@ -45,7 +45,7 @@ async function createDriverForProfile(proxy) {
   options.addExtensions(path.join(__dirname, ".", "crxs", "voltix.crx"));
   options.addExtensions(path.join(__dirname, ".", "crxs", "phantom.crx"));
   options.addArguments(`--proxy-server=${anonymized}`);
-  options.addArguments(`--user-data-dir=${profileDir}`);
+  // options.addArguments(`--user-data-dir=${profileDir}`);
 
   if (os.platform() === 'linux') {
     options.addArguments('--no-sandbox', '--disable-gpu');
