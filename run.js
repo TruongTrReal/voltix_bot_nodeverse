@@ -48,7 +48,7 @@ async function createDriverForProfile(proxy) {
   options.addArguments(`--user-data-dir=${profileDir}`);
 
   if (os.platform() === 'linux') {
-    options.addArguments('--headless', '--no-sandbox', '--disable-gpu');
+    options.addArguments('--no-sandbox', '--disable-gpu');
     options.setChromeBinaryPath('/usr/bin/chromium-browser');
   }
 
