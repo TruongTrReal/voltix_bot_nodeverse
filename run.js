@@ -1,5 +1,6 @@
 // runVoltixCheckLoop.js
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { Builder, By, until } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
@@ -45,6 +46,11 @@ async function createDriverForProfile(proxy) {
   options.addExtensions(path.join(__dirname, ".", "crxs", "phantom.crx"));
   options.addArguments(`--proxy-server=${anonymized}`);
   options.addArguments(`--user-data-dir=${profileDir}`);
+
+  if (os.platform() === 'linux') {
+    args.push('--headless', '--no-sandbox', '--disable-gpu');
+    options.setChromeBinaryPath('/usr/bin/chromium-browser');
+  }
 
   const driver = await new Builder().forBrowser('chrome').setChromeOptions(options).build();
   // Allow time for extensions to load.
