@@ -85,10 +85,16 @@ async function main() {
         const { driver, profileDir } = await createDriverForProfile(proxy);
 
         // Check for a marker file to decide if Phantom wallet needs to be set up.
+        try {
+          const setupResult = await voltixService.login(driver, recoveryKeyArray, proxy);
+        } catch (e) {
+          console.error(`Voltix might logfed in`);
+          continue;
+        }
         const markerFile = path.join(profileDir, 'walletSetup.txt');
         if (!fs.existsSync(markerFile)) {
           console.log(`Profile for proxy ${proxy} not set up yet. Running Phantom wallet setup...`);
-          const setupResult = await voltixService.login(driver, recoveryKeyArray, proxy);
+          
           if (setupResult) {
             console.log(`Profile for proxy ${proxy} set up successfully.`);
             fs.writeFileSync(markerFile, "setup complete", "utf8");
