@@ -50,6 +50,7 @@ async function createDriverForProfile(proxy) {
   if (os.platform() === 'linux') {
     options.addArguments('--no-sandbox', '--disable-gpu');
     options.setChromeBinaryPath('/usr/bin/chromium-browser');
+    options.addArguments('--headless');
   }
 
   const driver = await new Builder().forBrowser('chrome').setChromeOptions(options).build();
