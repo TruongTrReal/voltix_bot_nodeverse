@@ -116,30 +116,19 @@ const services = {
     }
   },
   voltix: {
-    // The Voltix extension URL that initiates the connection flow.
     loginUrl: "chrome-extension://dhffhdepkkepbcienheompkncklalogf/index.html",
-    // Typically the same as loginUrl, used to navigate or refresh the extension.
     extensionUrl: "chrome-extension://dhffhdepkkepbcienheompkncklalogf/index.html",
     selectors: {
-      // Button on the Voltix extension to initiate wallet connection.
-      connectWalletButton: "//button[contains(text(),'Connect wallet')]",
-      // Button on the Voltix dashboard for wallet connection.
-      connectWalletDashboardButton: "/html/body/main/aside[2]/div[1]/div/button",
-      // Next step button after wallet connection on the dashboard.
-      nextButton: "//*[@id='radix-:r0:']/div[2]/div[1]/button",
-      // Phantom wallet popup: input field for unlocking with the password.
-      phantomUnlockInput: "//*[@id='unlock-form']/div[2]/div/input",
-      // Phantom wallet popup: button to unlock the wallet.
-      phantomUnlockButton: "//*[@id='root']/div/div[1]/div/div[2]/div/button",
-      // Phantom wallet popup: button to connect the wallet.
-      phantomConnectButton: "//*[@id='root']/div/div[1]/div/div[2]/div/button[2]",
-      // Phantom wallet confirmation popup: button to confirm the connection.
-      phantomConfirmButton: "//*[@id='root']/div/div[1]/div/div[2]/div/button[2]",
-      // Voltix extension: button to start mining.
-      startMiningButton: "//*[@id='root']/div[1]/div/div/div[2]/div[2]/button",
-      // Indicator element (e.g., Stop training button) showing the mining has started.
-      stopTrainingButton: "//button[contains(text(),'Stop training')]",
-      pointValue: "//*[@id='root']/div[1]/div/div/div[2]/div[1]/div[2]/div[1]"
+      connectWalletButton: By.xpath("//button[contains(text(),'Connect wallet')]"),
+      connectWalletDashboardButton: By.xpath("/html/body/main/aside[2]/div[1]/div/button"),
+      nextButton: By.xpath("//*[@id='radix-:r0:']/div[2]/div[1]/button"),
+      phantomUnlockInput: By.xpath("//*[@id='unlock-form']/div[2]/div/input"),
+      phantomUnlockButton: By.xpath("//*[@id='root']/div/div[1]/div/div[2]/div/button"),
+      phantomConnectButton: By.xpath("//*[@id='root']/div/div[1]/div/div[2]/div/button[2]"),
+      phantomConfirmButton: By.xpath("//*[@id='root']/div/div[1]/div/div[2]/div/button[2]"),
+      startMiningButton: By.xpath(`//*[@id="root"]/div[1]/div/div/div[2]/div[2]/button`),
+      stopTrainingButton: By.xpath("//button[contains(text(),'Stop training')]"),
+      pointValue: By.xpath("//*[@id='root']/div[1]/div/div/div[2]/div[1]/div[2]/div[1]")
     }
   },
   hcapcha: {

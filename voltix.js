@@ -31,7 +31,7 @@ class VoltixService {
 
       // Click the "Connect wallet" button.
       let originalHandles = await driver.getAllWindowHandles();
-      await clickElement(driver, By.xpath(selectors.connectWalletButton));
+      await clickElement(driver, selectors.connectWalletButton);
       await driver.sleep(2000);
 
       // Step 3: Handle Voltix Dashboard.
@@ -45,11 +45,11 @@ class VoltixService {
       originalHandles = await driver.getAllWindowHandles();
 
       // On the Voltix dashboard, click the "connect wallet" button.
-      await clickElement(driver, By.xpath(selectors.connectWalletDashboardButton));
+      await clickElement(driver, selectors.connectWalletDashboardButton);
       await driver.sleep(2000);
 
       // Then click the next button.
-      await clickElement(driver, By.xpath(selectors.nextButton));
+      await clickElement(driver, selectors.nextButton);
       await driver.sleep(2000);
 
       // Step 4: Handle the Phantom popup for wallet unlock and connection.
@@ -60,21 +60,43 @@ class VoltixService {
       
       await driver.switchTo().window(phantomPopupHandle);
       
-      await clickElement(driver, By.xpath(selectors.phantomConnectButton));
+      await clickElement(driver, selectors.phantomConnectButton);
       await driver.sleep(2000);
 
       // Step 5: Handle Phantom confirmation popup.
       await switchToWindowContainingUrl(driver, 'bfnaelmomeimhlpmgjnjophhpkkoljpa', 10000);
       await driver.sleep(1000);
-      await clickElement(driver, By.xpath(selectors.phantomConfirmButton));
+      await clickElement(driver, selectors.phantomConfirmButton);
       await driver.sleep(2000);
 
-      // Step 6: Finalize Voltix connection.
-      let voltixPopupHandle = await switchToWindowContainingUrl(driver, 'dhffhdepkkepbcienheompkncklalogf', 10000);
-      if (!voltixPopupHandle) {
-        throw new Error("Voltix extension popup did not appear");
+      // Wait for phantom popup to disappear
+      let currentHandles = await driver.getAllWindowHandles();
+      let phantomHandleGone = false;
+      for (let i = 0; i < 10; i++) {
+        currentHandles = await driver.getAllWindowHandles();
+        if (!currentHandles.some(handle => handle.includes('bfnaelmomeimhlpmgjnjophhpkkoljpa'))) {
+          phantomHandleGone = true;
+          break;
+        }
+        await driver.sleep(1000);
       }
-      await driver.switchTo().window(voltixPopupHandle);
+
+      if (!phantomHandleGone) {
+        throw new Error("Phantom confirmation popup did not close");
+      }
+
+      await driver.sleep(10000);
+
+      // Close all tabs except the first one
+      const handles = await driver.getAllWindowHandles();
+      for (let i = 1; i < handles.length; i++) {
+        await driver.switchTo().window(handles[i]);
+        await driver.close();
+      }
+      await driver.switchTo().window(handles[0]);
+      
+      // Navigate directly to Voltix extension
+      await driver.get(config.services.voltix.extensionUrl);
       await driver.sleep(2000);
 
       // Chose mining option
@@ -84,11 +106,12 @@ class VoltixService {
       await driver.sleep(1000);
       await clickElement(driver, By.xpath(`//*[@id="root"]/div[1]/div/div/div[2]/button`));
       await driver.sleep(1000);
-    //   await clickElement(driver, By.xpath(selectors.startMiningButton));
-    //   await driver.sleep(3000);
 
-      // Verify success by waiting for the "Stop training" button.
-      await waitForElement(driver, By.xpath(selectors.stopTrainingButton), 15000);
+      const startButton = await driver.findElement(selectors.startMiningButton);
+      const buttonText = await startButton.getText();
+      if (buttonText === 'Start training') {
+        await clickElement(driver, selectors.startMiningButton);
+      }
 
       this.logger.info(`Voltix login automation success for proxy ${proxyUrl}`);
       return true;
@@ -105,15 +128,21 @@ class VoltixService {
    * @param {string} proxyUrl - Proxy URL info (for logging/debugging).
    * @returns {Promise<number|boolean>} - Returns the point value or false if failed.
    */
-  async check(driver, username, proxyUrl) {
+  async check(driver, username) {
     try {
       // Navigate to the Voltix extension page.
       await driver.get(config.services.voltix.extensionUrl);
       await driver.sleep(2000);
 
       const { selectors } = config.services.voltix;
+
+      const startButton = await driver.findElement(selectors.startMiningButton);
+      const buttonText = await startButton.getText();
+      if (buttonText === 'Start training') {
+        await clickElement(driver, selectors.startMiningButton);
+      }
       // Wait for the element that displays the point value.
-      const pointElement = await waitForElement(driver, By.xpath(selectors.pointValue), 20000);
+      const pointElement = await waitForElement(driver, selectors.pointValue, 20000);
       const pointText = await pointElement.getText();
       this.logger.info(`Voltix points for ${username}: ${pointText}`);
 
