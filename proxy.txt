@@ -1,0 +1,12 @@
+kingptBe3u:proxydate143@45.3.45.199:9090
+kingptBe3u:proxydate143@45.3.40.210:9090
+kingptBe3u:proxydate143@45.3.41.163:9090
+kingptBe3u:proxydate143@45.3.40.80:9090
+kingptBe3u:proxydate143@45.3.41.130:9090
+kingptBe3u:proxydate143@45.3.41.68:9090
+kingptBe3u:proxydate143@45.3.45.8:9090
+kingptBe3u:proxydate143@45.3.42.72:9090
+kingptBe3u:proxydate143@45.3.43.212:9090
+kingptBe3u:proxydate143@45.3.42.234:9090
+kingptBe3u:proxydate143@45.3.39.212:9090
+kingptBe3u:proxydate143@45.3.39.48:9090

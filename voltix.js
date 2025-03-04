@@ -100,12 +100,12 @@ class VoltixService {
       await driver.sleep(2000);
 
       // Chose mining option
-      await clickElement(driver, By.xpath(`//*[@id="root"]/div[1]/div/div/div[2]/div[2]/div[1]/button`));
-      await driver.sleep(1000);
-      await clickElement(driver, By.xpath(`//*[@id="root"]/div[1]/div/div/div[2]/div[2]/div[2]`));
-      await driver.sleep(1000);
-      await clickElement(driver, By.xpath(`//*[@id="root"]/div[1]/div/div/div[2]/button`));
-      await driver.sleep(1000);
+      // await clickElement(driver, By.xpath(`//*[@id="root"]/div[1]/div/div/div[2]/div[2]/div[1]/button`));
+      // await driver.sleep(1000);
+      // await clickElement(driver, By.xpath(`//*[@id="root"]/div[1]/div/div/div[2]/div[2]/div[2]`));
+      // await driver.sleep(1000);
+      // await clickElement(driver, By.xpath(`//*[@id="root"]/div[1]/div/div/div[2]/button`));
+      // await driver.sleep(1000);
 
       const startButton = await driver.findElement(selectors.startMiningButton);
       const buttonText = await startButton.getText();
